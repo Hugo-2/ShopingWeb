@@ -1,0 +1,86 @@
+﻿@model IEnumerable<TicketProductVM>
+
+@{
+    ViewData["Title"] = "Ticket";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    DateTime ahora = DateTime.Now;
+    DateTime fecha = ahora.Date;
+    TimeSpan hora = ahora.TimeOfDay;
+
+    decimal suma = 0;
+}
+
+@*<div class="fst-italic">Ticket/Ticket</div>
+*@
+
+<div class="container">
+    <div class="row">
+        <div class="col text-center">
+            <div> <img src="~/image/logo_@(ViewBag.tienda).png" alt="@ViewBag.tienda" style="max-height:35px;"></div>
+            <div>@fecha.ToString("D")</div>
+            <div id="clock"></div>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-2">
+    <div class=" display-6 text-center text-danger ">
+        Shopping Ticket
+    </div>
+    <div class="d-grid d-md-block text-center m-3">
+        <a asp-action="addOneMore" asp-route-shopName="@ViewBag.tienda" class="btn btn-primary"> <i class="bi bi-plus-lg"> Add one more </i> </a>
+    </div>
+</div>
+
+
+<div class="container">
+    <table class="table table-sm table-striped">
+        <thead>
+            <tr class="text-center">
+                <th class="col">Product</th>
+                <th class="col">Amount</th>
+                <th class="col">Price</th>
+                <th class="col">Sub-Total</th>
+                <th class="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var productos in Model)
+            {
+                <tr class="text-center">
+                    <td class="col">@productos.Producto</td>
+                    <td class="col">@productos.Cantidad</td>
+                    <td class="col">@productos.Precio</td>
+                    <td class="col">@productos.SubTotal</td>
+                    <td class="col">
+                        <a asp-action="editProduct" asp-route-idProducto="@productos.Id" class="btn btn-outline-primary"><i class="bi bi-pencil-square"></i></a>
+                        <label hidden>@(suma = suma + productos.SubTotal)</label>
+                    </td>
+                </tr>
+            }
+            <tr class="text-center">
+                <td class="col"></td>
+                <td class="col"></td>
+                <th class="col fs-5">TOTAL</th>
+                <th class="col fs-5">@suma Ft.</th>
+                <td class="col"></td>
+
+            </tr>
+        </tbody>
+    </table>
+
+</div>
+
+
+
+<script>
+    function updateClock() {
+        var now = new Date();
+        var clock = document.getElementById('clock');
+        clock.innerHTML = now.toLocaleTimeString();
+        setTimeout(updateClock, 1000);
+    }
+    updateClock();
+</script>
+

@@ -1,0 +1,45 @@
+﻿@model IEnumerable<NombreDeTiendasVM>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+@*<div class="fst-italic">Home/Index</div> 
+*@
+
+<div class="container">
+    <div class="row">
+        <div class="col text-center">
+            <img src="/image/gomarket_2.jpg" style="width:15%;" />
+            <h1 class="display-4">Go Market</h1>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+
+    <div class="border border-1 border-dark mb-3 mt-1"></div>
+
+    <div class="row text-center fw-bold">
+        <div class="col">Store</div>
+        <div class="col">Products</div>
+        <div class="col"></div>
+    </div>
+
+    <div class="border border-1 border-dark mb-3 mt-1"></div>
+    @foreach (var item in Model)
+    {
+        <div class="row pb-3 text-center">
+            <div class="col fw-bold">
+                <img src="~/image/logo_@(item.NombreTienda).png" alt="@item.NombreTienda" height="20px">
+            </div>
+            <div class="col-3">
+                @item.Cantidad
+            </div>
+            <div class="col">
+                <a asp-controller="Ticket" asp-action="Ticket" asp-route-nomTienda="@item.NombreTienda" class="btn btn-primary"><i class="bi bi-eye-fill"> To see</i></a>
+            </div>
+        </div>
+    }
+</div>
+

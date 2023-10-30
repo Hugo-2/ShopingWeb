@@ -1,0 +1,71 @@
+﻿@model ProductosVM
+@{
+    ViewData["Title"] = "AddProducto";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*<div class="fst-italic">Market/AddProducto</div>
+*@
+
+<div class="container">
+    <div class="row">
+        <div class="col-7 text-center">
+            <img src="/image/shopingList_1.jpg" class="w-50" />
+            <h1 class="display-4 mt-1">Shoping List</h1>
+        </div>
+        <div class="col text-center align-self-end">
+            <a asp-controller="Market" asp-action="Recordatorio" class="btn btn-secondary p-2"><i class="bi bi-arrow-return-left"> Come Back</i></a>
+        </div>
+    </div>
+</div>
+
+<div class="text-center mt-3 fw-bold">
+    <div class=""> <i class="bi bi-plus-lg"> ADD product to List</i> </div>
+</div>
+
+<div class="border border-1 border-success mt-3 mb-3 shadow-lg "></div>
+
+<form asp-action="AddProducto">
+    <div class="container">
+
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="row">
+            <div class="col">
+                <label asp-for="Producto" class="form-label"></label>
+                <input asp-for="Producto" class="form-control border border-dark" />
+                <span asp-validation-for="Producto" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <label asp-for="Cantidad" class="form-label"></label>
+                <input asp-for="Cantidad" class="form-control border border-dark" />
+                <span asp-validation-for="Cantidad" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <label asp-for="Tienda" class="form-label"></label>
+                <input asp-for="Tienda" class="form-control border border-dark" />
+                <span asp-validation-for="Tienda" class="text-danger"></span>
+            </div>
+        </div>
+        <br />
+
+        <div class="row">
+            <div class="col d-grid d-md-block text-center">
+                <button type="submit" class="btn btn-primary p-2 m-2"><i class="bi bi-plus-lg"> Add to list</i></button>
+            </div>
+        </div>
+
+
+
+    </div>
+</form>
+
+
+<!-- Para hacer validaciones con JQuery en FRONT-END -->
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}

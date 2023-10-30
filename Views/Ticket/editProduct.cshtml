@@ -1,0 +1,101 @@
+﻿@model TicketProductVM
+@{
+    ViewData["Title"] = "editProduct";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string nTienda = Model.Tienda;  
+
+    DateTime ahora = DateTime.Now;
+    DateTime fecha = ahora.Date;
+    TimeSpan hora = ahora.TimeOfDay;
+
+}
+
+@*<div class="fst-italic">Ticket/editProduct</div> 
+*@
+
+<div class="container">
+    <div class="row">
+        <div class="col text-center">
+            <div> <img src="~/image/logo_@(Model.Tienda).png" alt="@Model.Tienda" style="max-height:35px;"></div>
+            <div>@fecha.ToString("D")</div>
+            <div id="clock"></div>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-2">
+    <div class=" display-6 text-center text-danger ">
+        Shopping Ticket
+    </div>
+</div>
+
+<div class="text-center m-2 fw-bold">
+    <div class="">----- Edit this product -----</div>
+</div>
+
+<div class="border border-1 border-secondary mt-3 mb-3"></div>
+
+<form asp-action="editProduct">
+    <div class="container">
+
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input asp-for="Id" hidden />
+        <input asp-for="Tienda" hidden />
+
+
+        <div class="row pt-3">
+            <div class="col-3 text-end">
+                <label asp-for="Producto" class="form-label"></label>
+            </div>
+            <div class="col">
+                <input asp-for="Producto" class="form-control border-dark" />
+                <span asp-validation-for="Producto" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row pt-3">
+            <div class="col-3 text-end">
+                <label asp-for="Cantidad" class="form-label"></label>
+            </div>
+            <div class="col">
+                <input asp-for="Cantidad" class="form-control border-dark" />
+                <span asp-validation-for="Cantidad" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row pt-3">
+            <div class="col-3 text-end">
+                <label asp-for="Precio" class="form-label"></label>
+            </div>
+            <div class="col">
+                <input asp-for="Precio" class="form-control border-dark" />
+                <span asp-validation-for="Precio" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="border border-1 border-secondary mt-3 mb-3 shadow-sm "></div>
+
+        <div class="col d-grid d-md-block text-center">
+            <button class="btn btn-primary p-2 m-2"><i class="bi bi-bag-plus"> Save corrections</i></button>
+            <button asp-action="BorrarProductoTicket" class="btn btn-danger p-2 m-2"><i class="bi bi-dash"> Delete product</i></button>
+            <a asp-controller="Ticket" asp-action="Ticket" asp-route-nomTienda="@nTienda" class="btn btn-secondary p-2 m-2"><i class="bi bi-arrow-return-left"> Come Back</i></a>
+        </div>
+
+    </div>
+</form>
+
+
+<!-- Para hacer validaciones con JQuery en FRONT-END -->
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}
+
+
+    <script>
+        function updateClock() {
+            var now = new Date();
+            var clock = document.getElementById('clock');
+            clock.innerHTML = now.toLocaleTimeString();
+            setTimeout(updateClock, 1000);
+        }
+        updateClock();
+    </script>
